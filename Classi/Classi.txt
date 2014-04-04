@@ -1,0 +1,11 @@
+Tile{ //La classe madre delle celle
+
+	Map{ //la classe che contiene tutte le informazioni per il terreno della mappa
+	
+	
+	}
+	
+	Entities{ //classe che contiene le informazioni sugli oggetti che sono al di sopra della mappa
+	
+	}
+}
