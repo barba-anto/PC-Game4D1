@@ -1,11 +1,8 @@
-/*
- * Tile.cpp
- *
- *  Created on: 04/apr/2014
- *      Author: Christian
- */
 
 #include "Tile.h"
+#define TILE_ID 0
+#define MAP_ID 1
+#define ENTITES_ID 2
 
 Tile::Tile() {
 	// TODO Auto-generated constructor stub
