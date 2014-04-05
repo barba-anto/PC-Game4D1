@@ -1,0 +1,12 @@
+Tool{//Contiene le info sugli oggetti in un inventario
+	
+	Weapon{//Contiene le info sulle armi in un inventario
+	
+	
+	}
+	
+	Utils{//Contiene le info sugli oggetti usabili in un inventario
+	
+	
+	}
+}

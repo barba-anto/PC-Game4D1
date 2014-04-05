@@ -1,4 +1,3 @@
-
 #include "Tile.h"
 #define TILE_ID 0
 #define MAP_ID 1

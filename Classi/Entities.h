@@ -3,6 +3,7 @@
 #define ENTITIES_H_
 
 #include "Tile.h"
+#include "Tool.h"
 
 class Entities: public virtual Tile {
 	public:
@@ -10,7 +11,7 @@ class Entities: public virtual Tile {
 		virtual ~Entities();
 		int getTipo();
 		int getStato();
-		//Tool* inventario();
+		Tool* getInventario();
 };
 
 #endif /* ENTITIES_H_ */
