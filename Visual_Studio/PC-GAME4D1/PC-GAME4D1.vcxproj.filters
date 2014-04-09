@@ -38,26 +38,26 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="..\..\Classi\Entities.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Classi\Entities.h">
-      <Filter>File di origine</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Classi\Map.h">
-      <Filter>File di origine</Filter>
+      <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Classi\Tile.h">
-      <Filter>File di origine</Filter>
+      <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Classi\Tool.h">
-      <Filter>File di origine</Filter>
+      <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Classi\Utils.h">
-      <Filter>File di origine</Filter>
+      <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Classi\Weapon.h">
-      <Filter>File di origine</Filter>
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,5 +72,10 @@
     <Image Include="..\hello_world.bmp">
       <Filter>File di risorse</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PC-GAME4D11.rc">
+      <Filter>File di risorse</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

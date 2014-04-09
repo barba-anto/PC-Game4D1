@@ -1,45 +1,50 @@
-#include <iostream>
 #include <SDL.h>
+#include <SDL_image.h>
+#include <stdio.h>
+#include <string>
+#include <fstream>
 
-int main(int argc, char **argv){
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0){
-		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
-		return 1;
-	}
-	SDL_Window *win = SDL_CreateWindow("Hello World!", 100, 100, 640, 480,SDL_WINDOW_SHOWN);
-	if (win == nullptr){
-		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
-		return 1;
-	}
+bool inizializza();
 
-	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, 
-	SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (ren == nullptr){
-		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
-	return 1;
-	}
-	SDL_Surface *bmp = SDL_LoadBMP("..\\hello_world.bmp");
-	if (bmp == nullptr){
-		std::cout << "SDL_LoadBMP Error: " << SDL_GetError() << std::endl;
-		return 1;
-	}
-	SDL_Texture *tex = SDL_CreateTextureFromSurface(ren, bmp);
-	SDL_FreeSurface(bmp);
-	if (tex == nullptr){
-		std::cout << "SDL_CreateTextureFromSurface Error: "
-			<< SDL_GetError() << std::endl;
-		return 1;
-	}
-	SDL_RenderClear(ren);
-	SDL_RenderCopy(ren, tex, NULL, NULL);
-	SDL_RenderPresent(ren);
-	SDL_Delay(5000);
+void chiudi();
 
-	SDL_DestroyTexture(tex);
-	SDL_DestroyRenderer(ren);
-	SDL_DestroyWindow(win);
-	SDL_Quit();
+int LARGHEZZA_SCHERMO = 800;
+int ALTEZZA_SCHERMO = 600;
+SDL_Window* gFinestra = NULL; 
+SDL_Surface* gSuperficie = NULL; 
+
+int main( int argc, char* args[] )
+{
+	inizializza();
 
 
+
+
+	chiudi();
 	return 0;
+}
+
+bool inizializza() { 
+	bool flag = true; 
+	if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) { 
+		printf( "Non è stato possibile istanziare SDL; errore: %s\n", SDL_GetError() ); 
+		flag = false; 
+	} 
+	else { 
+		gFinestra = SDL_CreateWindow( "Prova Tile", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, LARGHEZZA_SCHERMO, ALTEZZA_SCHERMO, SDL_WINDOW_SHOWN ); 
+		if( gFinestra == NULL ) { 
+			printf( "Non è stato possiblile creare la finestra; errore: %s\n", SDL_GetError() );
+			flag = false; 
+		}
+		else { 
+			gSuperficie = SDL_GetWindowSurface( gFinestra ); 
+		} 
+	} 
+	return flag; 
+}
+
+void chiudi() { 
+	SDL_DestroyWindow( gFinestra );
+	gFinestra = NULL;  
+	SDL_Quit();
 }
