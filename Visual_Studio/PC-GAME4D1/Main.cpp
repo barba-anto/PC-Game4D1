@@ -14,38 +14,56 @@ SDL_Texture* caricaTexture(char*);
 
 int LARGHEZZA_SCHERMO = 800;
 int ALTEZZA_SCHERMO = 600;
+int GRANDEZZA_TEXTURE = 64;
 SDL_Window* gFinestra = NULL; 
 SDL_Renderer* gRenderizzatore = NULL;
 SDL_Texture* gTexture = NULL;
+
+
 
 int main( int argc, char* args[] )
 {
 	bool esci = false;
 	SDL_Event e;
 	inizializza();
-	int nr,nc,x=0,y=0,sprite;
-	nc = 50;
-	nr = 50;
-	
-	SDL_Texture* textLol = NULL;
-	SDL_Texture* textAsd = NULL;
+	int nr,nc,x=0,y=0;
+	nc = 8;
+	nr = 8;
+
+
 	SDL_Texture* textQwe = NULL;
 
-	textLol = caricaMedia("../Textures/brick.png");
-	textAsd = caricaMedia("../Textures/lava_flow.png");
 	textQwe = caricaMedia("../Textures/terrain.jpg");
+	/*
+	//Metodo 1:coordinate delle textures nell'atlas 
+	SDL_Rect a={32,0,16,16};
+	SDL_Rect b={16,0,16,16};
+	SDL_Rect c={64,0,16,16};
+	SDL_Rect d={0,16,16,16};
 
-	SDL_Rect txt1 = {0,0,16,16};
-	SDL_Rect txt2 [512];
+	SDL_Rect* textures[4]={&a,&b,&c,&d};
+	*/
+	//Metdo di riempimeto più efficace
+	SDL_Rect textures[5][4]={
+		{32,0,16,16},
+		{16,0,16,16},
+		{64,0,16,16},
+		{0,16,16,16},
+		{16,16,16,16}
+	};
 
-	for(sprite = 0;sprite <512; sprite++){
-		txt2[sprite].x = 0;
-		txt2[sprite].y = sprite;
-		txt2[sprite].h = 16;
-		txt2[sprite].w = 16;
-	}
 
-		int frame = 0;
+	int mappa[8][8]={
+		{4,4,4,4,4,4,4,4},
+		{4,1,0,0,2,2,0,4},
+		{4,1,0,0,2,2,0,4},
+		{4,1,0,0,2,2,0,4},
+		{4,1,1,1,0,0,0,4},
+		{4,0,0,0,0,0,0,4},
+		{4,3,3,3,3,3,0,4},
+		{4,4,4,4,4,4,4,4}};
+
+
 
 	while(!esci) {
 		while(SDL_PollEvent( &e ) != 0 )
@@ -55,41 +73,27 @@ int main( int argc, char* args[] )
 		SDL_SetRenderDrawColor( gRenderizzatore, 0xFF, 0xFF, 0xFF, 0xFF );
 		SDL_RenderClear( gRenderizzatore );
 		int i= 0;
-		bool test = true;
 		y = 0;
-		/*
+		int j = 0;
+
 		for(;i < nr ; i++){
 			x = 0;
 			j = 0;
 			for(; j < nc; j++){	
-					if (test){
-						SDL_Rect fillRect = {x,y,16,16}; 
-						SDL_RenderCopy(gRenderizzatore,textQwe,&txt1,&fillRect);
-						SDL_RenderDrawRect(gRenderizzatore,NULL);
-						
-					}else{*/
-						SDL_Rect fillRect = {x,y,128,128};
-						SDL_Rect* currentClip = &txt2[frame /32];
-						SDL_RenderCopy(gRenderizzatore,textAsd,currentClip,&fillRect);
-						SDL_RenderDrawRect(gRenderizzatore,&fillRect);
-						if(frame == 511)
-							frame = 0;
-						else
-							frame++;/*
-					}
-					test = !test;
-					x = x+16;
-				}
 				
-			y = y+16;
-		}*/
+				//Metodo 1: uso un array che contiene le corrds delle textures nell'atlas
+				SDL_Rect fillRect = {x,y,GRANDEZZA_TEXTURE,GRANDEZZA_TEXTURE}; 
+				SDL_RenderCopy(gRenderizzatore,textQwe,textures[mappa[i][j]],&fillRect);
+				SDL_RenderDrawRect(gRenderizzatore,NULL);
+				x = x+GRANDEZZA_TEXTURE;
+				
+			}
+			y = y+GRANDEZZA_TEXTURE;
+		}
 		SDL_RenderPresent( gRenderizzatore );
 	}
-	SDL_DestroyTexture(textLol); 	
-	SDL_DestroyTexture(textAsd);
+
 	SDL_DestroyTexture(textQwe);
-	textLol = NULL;
-	textAsd = NULL;
 	textQwe = NULL;
 	chiudi();
 	return 0;
@@ -131,8 +135,8 @@ SDL_Texture* caricaMedia(char* percorso) {
 
 
 void chiudi() { 
-	 SDL_DestroyTexture( gTexture ); 
-	 gTexture = NULL;
+	SDL_DestroyTexture( gTexture ); 
+	gTexture = NULL;
 
 	SDL_DestroyRenderer( gRenderizzatore );
 	SDL_DestroyWindow( gFinestra );
@@ -144,7 +148,7 @@ void chiudi() {
 }
 
 SDL_Texture* caricaTexture(char* percorso){
-	
+
 	SDL_Texture* tmp = NULL;
 	SDL_Surface* sCarica = IMG_Load(percorso);
 
