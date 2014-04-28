@@ -13,3 +13,7 @@ Entities::~Entities() {
 int Entities::getTipo(){
 	return 2;
 }
+
+void Entities::Renderizza(){
+
+}

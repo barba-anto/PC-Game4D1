@@ -39,15 +39,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\Librerie\SDL2-2.0.3\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Librerie\SDL2-2.0.3\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\Librerie\SDL2-2.0.3\include;..\..\Classi;$(IncludePath)</IncludePath>
+    <LibraryPath>..\Librerie\SDL2-2.0.3\lib\x86;$(LibraryPath);..\..\Classi</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\Librerie\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Classi;..\Librerie\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -92,9 +92,6 @@
   <ItemGroup>
     <Text Include="..\..\Classi\Classe tool.txt" />
     <Text Include="..\..\Classi\Classi.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\hello_world.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="PC-GAME4D11.rc" />

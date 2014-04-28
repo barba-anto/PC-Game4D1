@@ -12,6 +12,7 @@ class Entities: public virtual Tile {
 		int getTipo();
 		int getStato();
 		Tool* getInventario();
+		void Renderizza();
 };
 
 #endif /* ENTITIES_H_ */

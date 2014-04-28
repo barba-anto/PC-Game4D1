@@ -69,11 +69,6 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\hello_world.bmp">
-      <Filter>File di risorse</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <ResourceCompile Include="PC-GAME4D11.rc">
       <Filter>File di risorse</Filter>
     </ResourceCompile>

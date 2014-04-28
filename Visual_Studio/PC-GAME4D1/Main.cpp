@@ -4,10 +4,13 @@
 #include <string>
 #include <fstream>
 
+#include "Tile.h"
+#include "Map.h"
+
+
 
 using namespace std;
 bool inizializza();
-bool caricaTexturePNG(char*);
 SDL_Texture* caricaMedia(char*);
 void chiudi();
 SDL_Texture* caricaTexture(char*);
@@ -26,9 +29,8 @@ int main( int argc, char* args[] )
 	bool esci = false;
 	SDL_Event e;
 	inizializza();
-	int nr,nc,x=0,y=0;
-	nc = 8;
-	nr = 8;
+	int x=0,y=0;
+	const int nc = 16,nr = 8;
 
 
 	SDL_Texture* textQwe = NULL;
@@ -52,17 +54,10 @@ int main( int argc, char* args[] )
 		{16,16,16,16}
 	};
 
-
-	int mappa[8][8]={
-		{4,4,4,4,4,4,4,4},
-		{4,1,0,0,2,2,0,4},
-		{4,1,0,0,2,2,0,4},
-		{4,1,0,0,2,2,0,4},
-		{4,1,1,1,0,0,0,4},
-		{4,0,0,0,0,0,0,4},
-		{4,3,3,3,3,3,0,4},
-		{4,4,4,4,4,4,4,4}};
-
+	Tile* mappa2[2][2]={
+		{new Map(0,0,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[0]),new Map(0,1,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[1])},
+		{new Map(1,0,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[2]),new Map(1,1,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[3])}
+	};
 
 
 	while(!esci) {
@@ -76,21 +71,26 @@ int main( int argc, char* args[] )
 		y = 0;
 		int j = 0;
 
-		for(;i < nr ; i++){
+		for(;i < 2 ; i++){
 			x = 0;
 			j = 0;
-			for(; j < nc; j++){	
+			for(; j < 2; j++){	
 				
 				//Metodo 1: uso un array che contiene le corrds delle textures nell'atlas
+				/*
 				SDL_Rect fillRect = {x,y,GRANDEZZA_TEXTURE,GRANDEZZA_TEXTURE}; 
 				SDL_RenderCopy(gRenderizzatore,textQwe,textures[mappa[i][j]],&fillRect);
-				SDL_RenderDrawRect(gRenderizzatore,NULL);
+				*/
+				//Nuovo brillante metodo all in one
+				mappa2[i][j]->Renderizza();
+
+
 				x = x+GRANDEZZA_TEXTURE;
-				
 			}
 			y = y+GRANDEZZA_TEXTURE;
 		}
-		SDL_RenderPresent( gRenderizzatore );
+		SDL_RenderPresent( gRenderizzatore);
+		
 	}
 
 	SDL_DestroyTexture(textQwe);
@@ -162,14 +162,4 @@ SDL_Texture* caricaTexture(char* percorso){
 		SDL_FreeSurface(sCarica);
 	}
 	return tmp;
-}
-
-bool caricaTexturePNG(char* percorso){
-	bool flag = true;
-	gTexture = IMG_LoadTexture(gRenderizzatore,percorso);
-	if (gTexture == NULL){
-		printf("Immagine non trovata!");
-		flag = false;
-	}
-	return flag;
 }
