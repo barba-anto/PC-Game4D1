@@ -34,8 +34,14 @@ int main( int argc, char* args[] )
 
 
 	SDL_Texture* textQwe = NULL;
+	SDL_Texture* missing_texture= NULL;
 
-	textQwe = caricaMedia("../Textures/terrain.jpg");
+
+	textQwe = caricaMedia("../../Textures/terrain.jpg");
+
+	//Quando la texture manca...
+	missing_texture = caricaMedia("../../Textures/MISSING_TEXTURE_0x00000000.png");
+
 	/*
 	//Metodo 1:coordinate delle textures nell'atlas 
 	SDL_Rect a={32,0,16,16};
@@ -45,7 +51,8 @@ int main( int argc, char* args[] )
 
 	SDL_Rect* textures[4]={&a,&b,&c,&d};
 	*/
-	//Metdo di riempimeto più efficace
+
+	//Metodo di riempimeto più efficace
 	SDL_Rect textures[5][4]={
 		{32,0,16,16},
 		{16,0,16,16},
@@ -54,6 +61,7 @@ int main( int argc, char* args[] )
 		{16,16,16,16}
 	};
 
+	//Sistema di mappatura semi-definitivo
 	Tile* mappa2[2][2]={
 		{new Map(0,0,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[0]),new Map(0,1,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[1])},
 		{new Map(1,0,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[2]),new Map(1,1,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[3])}
@@ -65,7 +73,7 @@ int main( int argc, char* args[] )
 			if( e.type == SDL_QUIT ) 
 				esci = true;  
 
-		SDL_SetRenderDrawColor( gRenderizzatore, 0xFF, 0xFF, 0xFF, 0xFF );
+		SDL_SetRenderDrawColor( gRenderizzatore, 0x00, 0x00, 0x00, 0x00);
 		SDL_RenderClear( gRenderizzatore );
 		int i= 0;
 		y = 0;
@@ -81,6 +89,7 @@ int main( int argc, char* args[] )
 				SDL_Rect fillRect = {x,y,GRANDEZZA_TEXTURE,GRANDEZZA_TEXTURE}; 
 				SDL_RenderCopy(gRenderizzatore,textQwe,textures[mappa[i][j]],&fillRect);
 				*/
+
 				//Nuovo brillante metodo all in one
 				mappa2[i][j]->Renderizza();
 
