@@ -17,11 +17,10 @@ SDL_Texture* caricaTexture(char*);
 
 int LARGHEZZA_SCHERMO = 800;
 int ALTEZZA_SCHERMO = 600;
-int GRANDEZZA_TEXTURE = 64;
+int GRANDEZZA_TEXTURE = 128;
 SDL_Window* gFinestra = NULL; 
 SDL_Renderer* gRenderizzatore = NULL;
 SDL_Texture* gTexture = NULL;
-
 
 
 int main( int argc, char* args[] )
@@ -37,7 +36,7 @@ int main( int argc, char* args[] )
 	SDL_Texture* missing_texture= NULL;
 
 
-	textQwe = caricaMedia("../../Textures/terrain.jpg");
+	textQwe = caricaMedia("../../Textures/Textures.png");
 
 	//Quando la texture manca...
 	missing_texture = caricaMedia("../../Textures/MISSING_TEXTURE_0x00000000.png");
@@ -53,18 +52,21 @@ int main( int argc, char* args[] )
 	*/
 
 	//Metodo di riempimeto più efficace
-	SDL_Rect textures[5][4]={
-		{32,0,16,16},
+	SDL_Rect textures[8][4]={
+		{0,0,16,16},
 		{16,0,16,16},
+		{32,0,16,16},
+		{48,0,16,16},
 		{64,0,16,16},
-		{0,16,16,16},
-		{16,16,16,16}
+		{80,0,16,16},
+		{96,0,16,16},
+		{112,0,16,16}
 	};
 
 	//Sistema di mappatura semi-definitivo
 	Tile* mappa2[2][2]={
-		{new Map(0,0,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[0]),new Map(0,1,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[1])},
-		{new Map(1,0,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[2]),new Map(1,1,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[3])}
+		{new Map(0,0,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[2]),new Map(0,1,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[5])},
+		{new Map(1,0,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[6]),new Map(1,1,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[0])}
 	};
 
 
