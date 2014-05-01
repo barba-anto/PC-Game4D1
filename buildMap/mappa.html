@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="dinamicita.js"></script>
+<link href="stili.css" rel="stylesheet" type="text/css">
+<title>Crea la tua mappa</title>
+</head>
+
+<body>
+<div class="input">
+Larghezza <input id="width" type="number" name="someid" onkeypress="return isNumberKey(event)">	<br>
+Lunghezza <input id="height" type="number" name="someid" onkeypress="return isNumberKey(event)"> <br>
+<button onclick="createMap()">Crea Mappa</button>
+<button onclick="parseDom()">Crea XML</button>
+</div>
+<div id="map">
+<button id="tile">Mama</button>
+</div>
+
+
+<div id="palette">
+	<img id="missingTexture" class="missingTexture" src="texture/MISSING_TEXTURE_0x00000000.png" onclick="changeTexture('missingTexture')"/>
+	<img id="erba" class="erba" src="texture/erba.png" onclick="changeTexture('erba')" />
+	<img id="erbaGlass" class="erbaGlass" src="texture/Erba_glass.png" onclick="changeTexture('erbaGlass')" />
+	<img id="acqua" class="acqua" src="texture/Acqua.png" onclick="changeTexture('acqua')" />
+	<img id="acquaGlass" class="acquaGlass" src="texture/Acqua_glass.png" onclick="changeTexture('acquaGlass')" />
+	<img id="erbaMagika" class="erbaMagika" src="texture/Erba_magika.png" onclick="changeTexture('erbaMagika')" />
+	<img id="erbaScura" class="erbaScura" src="texture/Erba_scura.png" onclick="changeTexture('erbaScura')" />
+	<img id="terra" class="terra" src="texture/Terra.png" onclick="changeTexture('terra')" />
+	<img id="terraGlass" class="terraGlass" src="texture/Terra_glass.png" onclick="changeTexture('terraGlass')" />
+
+</div>
+
+<!-- <div id="addTextures">
+Sorgente immagine <input id="directory" text="file" accept="image/*"/> <br>
+Nome <input id="name" type="text"/> <br>
+<button onclick="addTexture()">Aggiungi Texture</button>
+-->
+
+</div>
+<div id="Scelta">
+</div>
+<textarea id="xml">
+</textarea>
+</body>
+
+
+</html>
