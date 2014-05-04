@@ -2,7 +2,7 @@
 #ifndef TILE_H_
 #define TILE_H_
 
-#include <SDL.h>
+#include <SDL2\SDL.h>
 
 class Tile {
 	public:

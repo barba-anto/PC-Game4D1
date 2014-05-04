@@ -1,11 +1,17 @@
-#include <SDL.h>
-#include <SDL_image.h>
+#include <SDL2\SDL.h>
+#include <SDL2\SDL_image.h>
 #include <stdio.h>
 #include <string>
 #include <fstream>
 
+#include "cpgf/serialization/gmetaarchivereader.h"
+#include "cpgf/serialization/gmetaarchivewriter.h"
+#include "cpgf/metatraits/gmetaserializer_string.h"
+#include "cpgf/metatraits/gmetaserializer_array.h"
+
 #include "Tile.h"
 #include "Map.h"
+
 
 
 
@@ -65,8 +71,8 @@ int main( int argc, char* args[] )
 
 	//Sistema di mappatura semi-definitivo
 	Tile* mappa2[2][2]={
-		{new Map(0,0,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[2]),new Map(0,1,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[5])},
-		{new Map(1,0,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[6]),new Map(1,1,GRANDEZZA_TEXTURE,textQwe,gRenderizzatore,textures[0])}
+		{new Map(0,0,GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[2]),new Map(0,1,GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[5])},
+		{new Map(1,0,GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[6]),new Map(1,1,GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[0])}
 	};
 
 
@@ -101,7 +107,6 @@ int main( int argc, char* args[] )
 			y = y+GRANDEZZA_TEXTURE;
 		}
 		SDL_RenderPresent( gRenderizzatore);
-		
 	}
 
 	SDL_DestroyTexture(textQwe);

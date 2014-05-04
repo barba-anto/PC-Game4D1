@@ -1,11 +1,7 @@
-﻿Compilazione avviata 29/04/2014 16:39:36.
+﻿Compilazione avviata 04/05/2014 14:34:34.
      1>Progetto "C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\PC-GAME4D1\PC-GAME4D1.vcxproj" sul nodo 2 (destinazioni: Build).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\..\Classi /I"..\Librerie\SDL2-2.0.3\include" /Zi /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
-         cl : warning della riga di comando D9028 : errore di ricompilazione minima, ripristino della build normale
-         Main.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\Debug\PC-GAME4D1.exe" /INCREMENTAL /NOLOGO /LIBPATH:"..\Librerie\SDL2-2.0.3\lib\x86" SDL2.lib SDL2main.lib SDL2_image.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\Debug\PC-GAME4D1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\Debug\PC-GAME4D1.lib" /MACHINE:X86 "Debug\PC-GAME4D11.res"
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\Debug\PC-GAME4D1.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\..\Librerie\SDL2\lib\x86 SDL2\x86\SDL2.lib SDL2\x86\SDL2main.lib SDL2\x86\SDL2_image.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\Debug\PC-GAME4D1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\Debug\PC-GAME4D1.lib" /MACHINE:X86 "Debug\PC-GAME4D11.res"
          Debug\Entities.obj
          Debug\Map.obj
          Debug\Tile.obj
@@ -13,9 +9,10 @@
          Debug\Utils.obj
          Debug\Weapon.obj
          Debug\Main.obj
+     1>MSVCRTD.lib(cinitexe.obj) : warning LNK4098: la libreria predefinita 'msvcrt.lib' è in conflitto con l'utilizzo di altre librerie; utilizzare /NODEFAULTLIB:libreria
          PC-GAME4D1.vcxproj -> C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\Debug\PC-GAME4D1.exe
      1>Compilazione progetto "C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\PC-GAME4D1\PC-GAME4D1.vcxproj" (destinazioni: Build) completata.
 
 Build succeeded.
 
-Tempo trascorso 00:00:01.91
+Tempo trascorso 00:00:01.17

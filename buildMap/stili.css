@@ -21,38 +21,38 @@ height:20px;
 }
 
 .erba{
-background-image:url('../texture/erba.png');
+background-image:url('../Textures/Erba.png');
 }
 
 
-.missingTexture{
-background-image:url('../texture/MISSING_TEXTURE_0x00000000.png');
+.missingTextures{
+background-image:url('../Textures/MISSING_TEXTURE_0x00000000.png');
 }
 
 .erbaGlass{
-background-image:url('../texture/Erba_glass.png');
+background-image:url('../Textures/Erba_glass.png');
 }
 
 .acqua {
-background-image:url('../texture/Acqua.png');
+background-image:url('../Textures/Acqua.png');
 }
 
 .acquaGlass{
-background-image:url('../texture/Acqua_glass.png');
+background-image:url('../Textures/Acqua_glass.png');
 }
 
 .erbaMagika{
-background-image:url('../texture/Erba_magika.png');
+background-image:url('../Textures/Erba_magika.png');
 }
 
 .erbaScura{
-background-image:url('../texture/Erba_scura.png');
+background-image:url('../Textures/Erba_scura.png');
 }
 .terra
 {
-background-image:url('../texture/Terra.png');
+background-image:url('../Textures/Terra.png');
 }
 
 .terraGlass{
-background-image:url('../texture/Terra_glass.png');
+background-image:url('../Textures/Terra_glass.png');
 }

@@ -39,21 +39,21 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\Librerie\SDL2-2.0.3\include;..\..\Classi;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Librerie\SDL2-2.0.3\lib\x86;$(LibraryPath);..\..\Classi</LibraryPath>
+    <IncludePath>..\..\Classi;..\..\Librerie\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\Librerie\lib;$(LibraryPath);..\..\Classi</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\Classi;..\Librerie\SDL2-2.0.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Classi;..\..\Librerie\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\Librerie\SDL2-2.0.3\lib\x86</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\Librerie\SDL2\lib\x86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2\x86\SDL2.lib;SDL2\x86\SDL2main.lib;SDL2\x86\SDL2_image.lib</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
