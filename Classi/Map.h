@@ -6,15 +6,15 @@
 
 class Map: public virtual Tile {
 	public:
-		Map(int x, int y,int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* renderizzatore,SDL_Rect* tile);
+		Map(int,bool,SDL_Texture*,SDL_Renderer*,SDL_Rect*);
 		virtual ~Map();
 		int getTipo();
 		bool solid();
 		int getModalita();
-		void Renderizza();
+		void Renderizza(int,int);
 	private:
 		bool solido;
-		SDL_Rect parte;
+		int dimensione;
 		SDL_Texture* texture;
 		SDL_Renderer* renderizzatore;
 		SDL_Rect* tile;

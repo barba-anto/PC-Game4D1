@@ -9,7 +9,7 @@ class Tile {
 		Tile();
 		virtual ~Tile();
 		virtual int getTipo() = 0;
-		virtual void Renderizza() = 0;
+		virtual void Renderizza(int,int) = 0;
 };
 
 #endif /* TILE_H_ */

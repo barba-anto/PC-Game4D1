@@ -2,9 +2,8 @@
 #include "Map.h"
 
 
-Map::Map(int x, int y,int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* renderizzatore,SDL_Rect* tile) {
-	SDL_Rect tmp = {x*grandezza,y*grandezza,grandezza,grandezza};
-	Map::parte = tmp;
+Map::Map(int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* renderizzatore,SDL_Rect* tile) {
+	Map::dimensione = grandezza;
 	Map::texture = texture;
 	Map::renderizzatore = renderizzatore;
 	Map::tile = tile;
@@ -21,8 +20,9 @@ int Map::getTipo(){
 	return 1;
 }
 
-void Map::Renderizza(){
-	SDL_RenderCopy(renderizzatore,texture,tile,&parte);
+void Map::Renderizza(int x, int y){
+	SDL_Rect a = {x,y,dimensione,dimensione};
+	SDL_RenderCopy(renderizzatore,texture,tile,&a);
 }
 
 bool Map::solid(){

@@ -4,29 +4,35 @@
 #include <string>
 #include <fstream>
 
-#include "cpgf/serialization/gmetaarchivereader.h"
-#include "cpgf/serialization/gmetaarchivewriter.h"
-#include "cpgf/metatraits/gmetaserializer_string.h"
-#include "cpgf/metatraits/gmetaserializer_array.h"
+#include <RapidXML\rapidxml.hpp>
+#include <RapidXML\rapidxml_iterators.hpp>
+#include <RapidXML\rapidxml_print.hpp>
+#include <RapidXML\rapidxml_utils.hpp>
 
 #include "Tile.h"
 #include "Map.h"
 
 
 
-
 using namespace std;
+using namespace rapidxml;
+
 bool inizializza();
 SDL_Texture* caricaMedia(char*);
 void chiudi();
 SDL_Texture* caricaTexture(char*);
 
-int LARGHEZZA_SCHERMO = 800;
-int ALTEZZA_SCHERMO = 600;
-int GRANDEZZA_TEXTURE = 128;
+int LARGHEZZA_SCHERMO = 1024;
+int ALTEZZA_SCHERMO = 768;
+int GRANDEZZA_TEXTURE = 48;
 SDL_Window* gFinestra = NULL; 
 SDL_Renderer* gRenderizzatore = NULL;
 SDL_Texture* gTexture = NULL;
+
+
+
+
+
 
 
 int main( int argc, char* args[] )
@@ -34,12 +40,19 @@ int main( int argc, char* args[] )
 	bool esci = false;
 	SDL_Event e;
 	inizializza();
-	int x=0,y=0;
-	const int nc = 16,nr = 8;
-
-
+	const int nc = 300,nr = 300;
 	SDL_Texture* textQwe = NULL;
 	SDL_Texture* missing_texture= NULL;
+
+	int CX=-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2),CY=-((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2);
+	
+
+	xml_document<> doc;
+	ifstream file("xml_file.xml");
+	vector<char> buffer((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+	buffer.push_back('\0');
+	doc.parse<0>(&buffer[0]);
+
 
 
 	textQwe = caricaMedia("../../Textures/Textures.png");
@@ -58,40 +71,68 @@ int main( int argc, char* args[] )
 	*/
 
 	//Metodo di riempimeto più efficace
-	SDL_Rect textures[8][4]={
+	SDL_Rect textures[7][4]={
 		{0,0,16,16},
 		{16,0,16,16},
 		{32,0,16,16},
 		{48,0,16,16},
-		{64,0,16,16},
 		{80,0,16,16},
 		{96,0,16,16},
 		{112,0,16,16}
 	};
 
-	//Sistema di mappatura semi-definitivo
-	Tile* mappa2[2][2]={
-		{new Map(0,0,GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[2]),new Map(0,1,GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[5])},
-		{new Map(1,0,GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[6]),new Map(1,1,GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[0])}
+	//Sistema di mappatura semi-definitivo, ora riempito in maniera random tanto per
+	Tile* mappa2[nr][nc]={
+		{new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[2]),new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[5])},
+		{new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[6]),new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[0])}
 	};
+	int o,p;
+	for(o = 0; o< nr; o++)
+		for(p = 0; p<nc; p++)
+			mappa2[o][p] = new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[(rand()%7)]);
 
 
 	while(!esci) {
-		while(SDL_PollEvent( &e ) != 0 )
+		if(SDL_PollEvent( &e ) ){
 			if( e.type == SDL_QUIT ) 
 				esci = true;  
 
+			if (e.type == SDL_KEYDOWN)
+			{
+				SDL_Keycode keyPressed = e.key.keysym.sym;
+				switch (keyPressed)
+				{
+				case SDLK_w:
+					if(CY > -((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2))
+						CY--;
+					break;
+				case SDLK_s:
+					if(CY < nr-((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2)-1)
+						CY++;
+					break;
+				case SDLK_a:
+					if(CX > -((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2))
+						CX--;
+					break;
+				case SDLK_d:
+					if(CX < nc-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2)-1)
+						CX++;
+					break;
+				}
+				printf("CX: %d\tCY: %d\n",CX,CY);
+			}
+		}
+
+
 		SDL_SetRenderDrawColor( gRenderizzatore, 0x00, 0x00, 0x00, 0x00);
 		SDL_RenderClear( gRenderizzatore );
-		int i= 0;
-		y = 0;
-		int j = 0;
+		int i= 0,j = 0,x=-GRANDEZZA_TEXTURE*CX,y=-GRANDEZZA_TEXTURE*CY;
 
-		for(;i < 2 ; i++){
-			x = 0;
+		for(;i < nr; i++){
 			j = 0;
-			for(; j < 2; j++){	
-				
+			x = -GRANDEZZA_TEXTURE*CX;
+			for(; j < nc; j++){	
+
 				//Metodo 1: uso un array che contiene le corrds delle textures nell'atlas
 				/*
 				SDL_Rect fillRect = {x,y,GRANDEZZA_TEXTURE,GRANDEZZA_TEXTURE}; 
@@ -99,15 +140,17 @@ int main( int argc, char* args[] )
 				*/
 
 				//Nuovo brillante metodo all in one
-				mappa2[i][j]->Renderizza();
-
-
-				x = x+GRANDEZZA_TEXTURE;
+				mappa2[i][j]->Renderizza(x,y);
+				x += GRANDEZZA_TEXTURE;
 			}
-			y = y+GRANDEZZA_TEXTURE;
+			y += GRANDEZZA_TEXTURE;
 		}
+		SDL_Rect asd = {((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2)*GRANDEZZA_TEXTURE,(((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2)*GRANDEZZA_TEXTURE)+GRANDEZZA_TEXTURE-8,8,8};
+		SDL_RenderCopy(gRenderizzatore,missing_texture,NULL,&asd);
+
 		SDL_RenderPresent( gRenderizzatore);
 	}
+	
 
 	SDL_DestroyTexture(textQwe);
 	textQwe = NULL;
