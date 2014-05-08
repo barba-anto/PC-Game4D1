@@ -19,7 +19,7 @@
       </colonna>
 	  <colonna posx="1">
         <terreno>
-          <texture_id>4</texture_id>
+          <texture_id>3</texture_id>
           <solido>false</solido>
         </terreno>
       </colonna>
@@ -52,26 +52,26 @@
       </colonna>
 	  <colonna posx="1">
         <terreno>
-          <texture_id>8</texture_id>
+          <texture_id>5</texture_id>
           <solido>false</solido>
         </terreno>
       </colonna>
 	  <colonna posx="2">
         <terreno>
-          <texture_id>12</texture_id>
+          <texture_id>2</texture_id>
           <solido>false</solido>
         </terreno>
       </colonna>
 	  <colonna posx="3">
         <terreno>
-          <texture_id>13</texture_id>
+          <texture_id>3</texture_id>
           <texture_frame>2</texture_frame>
           <solido>false</solido>
         </terreno>
       </colonna>
 	  <colonna posx="4">
         <terreno>
-          <texture_id>3</texture_id>
+          <texture_id>7</texture_id>
           <texture_frame>5</texture_frame>
           <solido>false</solido>
         </terreno>
@@ -80,19 +80,19 @@
 	<riga posy="2">
 	  <colonna posx="0">
         <terreno>
-          <texture_id>11</texture_id>
+          <texture_id>9</texture_id>
           <solido>false</solido>
         </terreno>
       </colonna>
 	  <colonna posx="1">
         <terreno>
-          <texture_id>23</texture_id>
+          <texture_id>3</texture_id>
           <solido>false</solido>
         </terreno>
       </colonna>
 	  <colonna posx="2">
         <terreno>
-          <texture_id>8</texture_id>
+          <texture_id>1</texture_id>
           <solido>false</solido>
         </terreno>
       </colonna>
@@ -144,11 +144,11 @@
 	<riga posy="4">
 	  <colonna posx="0">
         <terreno>
-          <texture_id>9</texture_id>
+          <texture_id>3</texture_id>
           <solido>false</solido>
         </terreno>
 		<entita>
-          <texture_id>11</texture_id>
+          <texture_id>1</texture_id>
           <texture_frame>3</texture_frame>
           <solido>false</solido>
           <portale>mappa2.xml</portale>
@@ -156,19 +156,19 @@
       </colonna>
 	  <colonna posx="1">
         <terreno>
-          <texture_id>12</texture_id>
+          <texture_id>2</texture_id>
           <solido>false</solido>
         </terreno>
       </colonna>
 	  <colonna posx="2">
         <terreno>
-          <texture_id>45</texture_id>
+          <texture_id>4</texture_id>
           <solido>false</solido>
         </terreno>
       </colonna>
 	  <colonna posx="3">
         <terreno>
-          <texture_id>15</texture_id>
+          <texture_id>5</texture_id>
           <solido>false</solido>
         </terreno>
       </colonna>

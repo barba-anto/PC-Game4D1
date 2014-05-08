@@ -25,6 +25,7 @@ SDL_Texture* caricaTexture(char*);
 int LARGHEZZA_SCHERMO = 1024;
 int ALTEZZA_SCHERMO = 768;
 int GRANDEZZA_TEXTURE = 48;
+const int NUMERO_TEXTURES = 7;
 SDL_Window* gFinestra = NULL; 
 SDL_Renderer* gRenderizzatore = NULL;
 SDL_Texture* gTexture = NULL;
@@ -40,22 +41,85 @@ int main( int argc, char* args[] )
 	bool esci = false;
 	SDL_Event e;
 	inizializza();
-	const int nc = 300,nr = 300;
 	SDL_Texture* textQwe = NULL;
 	SDL_Texture* missing_texture= NULL;
-
-	int CX=-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2),CY=-((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2);
+	int oX =-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2),oY = -((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2);
 	
+	textQwe = caricaMedia("../../Textures/Textures.png");
+
+	//Quando la texture manca...
+	missing_texture = caricaMedia("../../Textures/MISSING_TEXTURE_0x00000000.png");
+
+	//Metodo di riempimeto più efficace
+	SDL_Rect textures[NUMERO_TEXTURES][4]={
+		{0,0,16,16},
+		{16,0,16,16},
+		{32,0,16,16},
+		{48,0,16,16},
+		{80,0,16,16},
+		{96,0,16,16},
+		{112,0,16,16}
+	};
+
+
 
 	xml_document<> doc;
-	ifstream file("xml_file.xml");
+	ifstream file("../../XML/prova.xml");
 	vector<char> buffer((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
 	buffer.push_back('\0');
 	doc.parse<0>(&buffer[0]);
+	xml_node<> *nodo = doc.first_node(doc.first_node()->name());
+	xml_attribute<> *attributo;
+	attributo = nodo->first_attribute("altezza");
+
+	const int nc = atoi(nodo->first_attribute("larghezza")->value());
+	const int nr = atoi(nodo->first_attribute("altezza")->value());
+
+	//Sistema di mappatura semi-definitivo, ora riempito in maniera random tanto per
+	Tile* mappa[300][300][2];
+
+	int v1,v2;
+	for(v1 = 0; v1 < nr; v1 ++){
+		for(v2 = 0; v2 < nc; v2 ++){
+			mappa[v1][v2][0] = NULL;
+			mappa[v1][v2][1] = NULL;
+		}
+	}
 
 
+	xml_node<> *nodo2 = nodo->first_node();
+	nodo2 = nodo2->next_sibling();
 
-	textQwe = caricaMedia("../../Textures/Textures.png");
+	printf("X:%d ",atoi(nodo2->first_attribute("start_X")->value()));
+	printf("Y:%d\n",atoi(nodo2->first_attribute("start_Y")->value()));
+
+	int CX=atoi(nodo2->first_attribute("start_X")->value())-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2),CY=atoi(nodo2->first_attribute("start_Y")->value())-((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2);
+	
+	xml_node<> *riga = nodo2->first_node();
+	xml_node<> *colonna;
+	xml_node<> *blocco;
+	for(v1 = 0; v1 < nr; v1++){
+	printf("%s %s\n",riga->first_attribute()->name(),riga->first_attribute()->value());
+	colonna = riga->first_node();
+		for(v2 = 0;v2 <nc; v2++){
+			printf("%s %s\n",colonna->first_attribute()->name(),colonna->first_attribute()->value());
+			blocco = colonna->first_node();
+			blocco = blocco->first_node("texture_id");
+
+			int txt_id = atoi(blocco->value());
+			blocco = blocco->next_sibling("solido");
+			bool solid;
+			if(blocco->value() == "true")
+				solid = true;
+			else
+				solid = false;
+			mappa[v1][v2][0] = new Map(GRANDEZZA_TEXTURE,solid,textQwe,gRenderizzatore,textures[txt_id]);
+			printf("txt_id: %d\tv1:%d\tv2:%d\n",txt_id,v1,v2);
+
+			colonna = colonna->next_sibling();
+		}
+	riga = riga->next_sibling();
+	}
 
 	//Quando la texture manca...
 	missing_texture = caricaMedia("../../Textures/MISSING_TEXTURE_0x00000000.png");
@@ -70,27 +134,14 @@ int main( int argc, char* args[] )
 	SDL_Rect* textures[4]={&a,&b,&c,&d};
 	*/
 
-	//Metodo di riempimeto più efficace
-	SDL_Rect textures[7][4]={
-		{0,0,16,16},
-		{16,0,16,16},
-		{32,0,16,16},
-		{48,0,16,16},
-		{80,0,16,16},
-		{96,0,16,16},
-		{112,0,16,16}
-	};
-
-	//Sistema di mappatura semi-definitivo, ora riempito in maniera random tanto per
-	Tile* mappa2[nr][nc]={
-		{new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[2]),new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[5])},
-		{new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[6]),new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[0])}
-	};
+	
+	/*
+	
 	int o,p;
 	for(o = 0; o< nr; o++)
 		for(p = 0; p<nc; p++)
-			mappa2[o][p] = new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[(rand()%7)]);
-
+			mappa[o][p][0] = new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[(rand()%7)]);
+*/
 
 	while(!esci) {
 		if(SDL_PollEvent( &e ) ){
@@ -119,7 +170,6 @@ int main( int argc, char* args[] )
 						CX++;
 					break;
 				}
-				printf("CX: %d\tCY: %d\n",CX,CY);
 			}
 		}
 
@@ -140,7 +190,7 @@ int main( int argc, char* args[] )
 				*/
 
 				//Nuovo brillante metodo all in one
-				mappa2[i][j]->Renderizza(x,y);
+				mappa[i][j][0]->Renderizza(x,y);
 				x += GRANDEZZA_TEXTURE;
 			}
 			y += GRANDEZZA_TEXTURE;
