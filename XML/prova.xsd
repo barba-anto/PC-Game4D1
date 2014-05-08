@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Mappa_Esempio">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Descrizione">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nome_short" type="xs:string"/>
+              <xs:element name="icon_small" type="xs:anyURI"/>
+              <xs:element name="icon_big" type="xs:anyURI"/>
+              <xs:element name="descrizione_full" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Mappa">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="riga">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="colonna">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="terreno" maxOccurs="1" minOccurs="1">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="texture_id" type="xs:unsignedInt"/>
+                                <xs:element name ="texture_frame" type="xs:unsignedInt"/>
+                                <xs:element name="solido" type="xs:boolean"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="entita" maxOccurs="1" minOccurs="0">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="texture_id" type="xs:unsignedInt"/>
+                                <xs:element name ="texture_frame" type="xs:unsignedInt"/>
+                                <xs:element name="solido" type="xs:boolean"/>
+                                <xs:element name="portale" type="xs:anyURI" maxOccurs="1" minOccurs="0"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="posx" type="xs:unsignedInt"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="posy" type="xs:unsignedInt"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="start_X" type="xs:unsignedInt"/>
+            <xs:attribute name="start_Y" type="xs:unsignedInt"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="larghezza" type="xs:unsignedInt" use="required"/>
+      <xs:attribute name="altezza" type="xs:unsignedInt" use="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mappa_Esempio larghezza="5" altezza="5">
+  <Descrizione>
+    <nome_short>M_A</nome_short>
+    <icon_small>../../Textures/small.ico.png</icon_small>
+    <icon_big>../../Textures/big.ico.png</icon_big>
+    <descrizione_full>
+	Questa è una mappa di esempio di come è costruita una mappa in XML composta da cinque righe e cinque colonne.
+	La mappa contiene un indirizzo ad una piccola icona e un altro ad una più grande, necessari durante la selezione delle mappe ingame.
+	</descrizione_full>
+  </Descrizione>
+  <Mappa start_X="2" start_Y="2">
+    <riga posy="0">
+	  <colonna posx="0">
+        <terreno>
+          <texture_id>1</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="1">
+        <terreno>
+          <texture_id>4</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="2">
+        <terreno>
+          <texture_id>3</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="3">
+        <terreno>
+          <texture_id>1</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="4">
+        <terreno>
+          <texture_id>2</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+    </riga>
+	<riga posy="1">
+	  <colonna posx="0">
+        <terreno>
+          <texture_id>6</texture_id>
+          <texture_frame>9</texture_frame>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="1">
+        <terreno>
+          <texture_id>8</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="2">
+        <terreno>
+          <texture_id>12</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="3">
+        <terreno>
+          <texture_id>13</texture_id>
+          <texture_frame>2</texture_frame>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="4">
+        <terreno>
+          <texture_id>3</texture_id>
+          <texture_frame>5</texture_frame>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+    </riga>
+	<riga posy="2">
+	  <colonna posx="0">
+        <terreno>
+          <texture_id>11</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="1">
+        <terreno>
+          <texture_id>23</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="2">
+        <terreno>
+          <texture_id>8</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="3">
+        <terreno>
+          <texture_id>4</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="4">
+        <terreno>
+          <texture_id>5</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+    </riga>
+	<riga posy="3">
+	  <colonna posx="0">
+        <terreno>
+          <texture_id>1</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="1">
+        <terreno>
+          <texture_id>7</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="2">
+        <terreno>
+          <texture_id>2</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="3">
+        <terreno>
+          <texture_id>3</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="4">
+        <terreno>
+          <texture_id>5</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+    </riga>
+	<riga posy="4">
+	  <colonna posx="0">
+        <terreno>
+          <texture_id>9</texture_id>
+          <solido>false</solido>
+        </terreno>
+		<entita>
+          <texture_id>11</texture_id>
+          <texture_frame>3</texture_frame>
+          <solido>false</solido>
+          <portale>mappa2.xml</portale>
+        </entita>
+      </colonna>
+	  <colonna posx="1">
+        <terreno>
+          <texture_id>12</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="2">
+        <terreno>
+          <texture_id>45</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="3">
+        <terreno>
+          <texture_id>15</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+	  <colonna posx="4">
+        <terreno>
+          <texture_id>2</texture_id>
+          <solido>false</solido>
+        </terreno>
+      </colonna>
+    </riga>
+  </Mappa>
+</Mappa_Esempio>
