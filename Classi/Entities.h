@@ -6,13 +6,27 @@
 #include "Tool.h"
 
 class Entities: public virtual Tile {
-	public:
-		Entities();
-		virtual ~Entities();
-		int getTipo();
-		int getStato();
-		Tool* getInventario();
-		void Renderizza();
+public:
+	Entities(int,bool,SDL_Texture*,SDL_Renderer*,SDL_Rect*,int,char*);
+	virtual ~Entities();
+	int getTipo();
+	int getStato();
+	Tool* getInventario();
+	void Renderizza(int,int);
+	bool solid();
+	int getFrame();
+	void setFrame(int);
+	char* getContenuto();
+
+private:
+	bool solido;
+	int dimensione;
+	int frame;
+	int frame_attuale;
+	SDL_Texture* texture;
+	SDL_Renderer* renderizzatore;
+	SDL_Rect* tile;
+	char* contenuto;
 };
 
 #endif /* ENTITIES_H_ */

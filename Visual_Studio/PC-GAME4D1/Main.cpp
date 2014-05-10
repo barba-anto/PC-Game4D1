@@ -26,6 +26,7 @@ int LARGHEZZA_SCHERMO = 1024;
 int ALTEZZA_SCHERMO = 768;
 int GRANDEZZA_TEXTURE = 48;
 const int NUMERO_TEXTURES = 7;
+const int NUMERO_TEXTURES_DYN = 2;
 SDL_Window* gFinestra = NULL; 
 SDL_Renderer* gRenderizzatore = NULL;
 SDL_Texture* gTexture = NULL;
@@ -42,10 +43,12 @@ int main( int argc, char* args[] )
 	SDL_Event e;
 	inizializza();
 	SDL_Texture* textQwe = NULL;
+	SDL_Texture* textDyn = NULL;
 	SDL_Texture* missing_texture= NULL;
 	int oX =-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2),oY = -((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2);
-	
+
 	textQwe = caricaMedia("../../Textures/Textures.png");
+	textDyn = caricaMedia("../../Textures/lava_flow.png");
 
 	//Quando la texture manca...
 	missing_texture = caricaMedia("../../Textures/MISSING_TEXTURE_0x00000000.png");
@@ -60,6 +63,44 @@ int main( int argc, char* args[] )
 		{96,0,16,16},
 		{112,0,16,16}
 	};
+
+	SDL_Rect textures_dyn[32]={
+		{0,0,16,16},
+		{0,2,16,16},
+		{0,4,16,16},
+		{0,6,16,16},
+		{0,8,16,16},
+		{0,10,16,16},
+		{0,12,16,16},
+		{0,14,16,16},
+		{0,16,16,16},
+		{0,18,16,16},
+		{0,20,16,16},
+		{0,22,16,16},
+		{0,24,16,16},
+		{0,26,16,16},
+		{0,28,16,16},
+		{0,30,16,16},
+		{0,32,16,16},
+		{0,34,16,16},
+		{0,36,16,16},
+		{0,38,16,16},
+		{0,40,16,16},
+		{0,42,16,16},
+		{0,44,16,16},
+		{0,46,16,16},
+		{0,48,16,16},
+		{0,50,16,16},
+		{0,52,16,16},
+		{0,54,16,16},
+		{0,56,16,16},
+		{0,58,16,16},
+		{0,60,16,16},
+		{0,62,16,16}
+	};
+
+
+
 
 
 
@@ -87,38 +128,48 @@ int main( int argc, char* args[] )
 	}
 
 
+
 	xml_node<> *nodo2 = nodo->first_node();
 	nodo2 = nodo2->next_sibling();
 
-	printf("X:%d ",atoi(nodo2->first_attribute("start_X")->value()));
-	printf("Y:%d\n",atoi(nodo2->first_attribute("start_Y")->value()));
-
 	int CX=atoi(nodo2->first_attribute("start_X")->value())-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2),CY=atoi(nodo2->first_attribute("start_Y")->value())-((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2);
-	
+	int txt_id = NULL;
+	int txt_frm = NULL;
+	bool solid = NULL;
+
+
+
 	xml_node<> *riga = nodo2->first_node();
 	xml_node<> *colonna;
 	xml_node<> *blocco;
 	for(v1 = 0; v1 < nr; v1++){
-	printf("%s %s\n",riga->first_attribute()->name(),riga->first_attribute()->value());
-	colonna = riga->first_node();
+		colonna = riga->first_node();
 		for(v2 = 0;v2 <nc; v2++){
-			printf("%s %s\n",colonna->first_attribute()->name(),colonna->first_attribute()->value());
 			blocco = colonna->first_node();
 			blocco = blocco->first_node("texture_id");
 
-			int txt_id = atoi(blocco->value());
+			txt_id = atoi(blocco->value());
+			if(blocco->next_sibling("texture_frame") != NULL)
+				txt_frm = atoi(blocco->value());
+			printf("%d\n",txt_frm);
+
 			blocco = blocco->next_sibling("solido");
-			bool solid;
-			if(blocco->value() == "true")
-				solid = true;
-			else
+			if(strcmp(blocco->value(),"true"))
 				solid = false;
-			mappa[v1][v2][0] = new Map(GRANDEZZA_TEXTURE,solid,textQwe,gRenderizzatore,textures[txt_id]);
-			printf("txt_id: %d\tv1:%d\tv2:%d\n",txt_id,v1,v2);
+			else
+				solid = true;
+
+			if(txt_frm != NULL)
+				mappa[v1][v2][0] = new Map(GRANDEZZA_TEXTURE,solid,textDyn,gRenderizzatore,&textures_dyn[txt_id],32,20);
+			else
+				mappa[v1][v2][0] = new Map(GRANDEZZA_TEXTURE,solid,textQwe,gRenderizzatore,textures[txt_id]);
+			txt_id= NULL;
+			txt_frm = NULL;
+			solid = NULL;
 
 			colonna = colonna->next_sibling();
 		}
-	riga = riga->next_sibling();
+		riga = riga->next_sibling();
 	}
 
 	//Quando la texture manca...
@@ -134,14 +185,14 @@ int main( int argc, char* args[] )
 	SDL_Rect* textures[4]={&a,&b,&c,&d};
 	*/
 
-	
+
 	/*
-	
+
 	int o,p;
 	for(o = 0; o< nr; o++)
-		for(p = 0; p<nc; p++)
-			mappa[o][p][0] = new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[(rand()%7)]);
-*/
+	for(p = 0; p<nc; p++)
+	mappa[o][p][0] = new Map(GRANDEZZA_TEXTURE,false,textQwe,gRenderizzatore,textures[(rand()%7)]);
+	*/
 
 	while(!esci) {
 		if(SDL_PollEvent( &e ) ){
@@ -151,23 +202,32 @@ int main( int argc, char* args[] )
 			if (e.type == SDL_KEYDOWN)
 			{
 				SDL_Keycode keyPressed = e.key.keysym.sym;
+				printf("%d %d %d\n",(CY-oY),(CX-oX),mappa[(CY-oY)][(CX-oX)][0]->solid());
 				switch (keyPressed)
 				{
 				case SDLK_w:
-					if(CY > -((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2))
-						CY--;
+					if((CY-oY) > 0)
+						if((CY-oY)-1 > -1)
+							if(!mappa[(CY-oY)-1][(CX-oX)][0]->solid())
+								CY--;
 					break;
 				case SDLK_s:
-					if(CY < nr-((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2)-1)
-						CY++;
+					if((CY-oY) < nr-1)
+						if((CY-oY)-1 < nr)
+							if(!mappa[(CY-oY)+1][(CX-oX)][0]->solid())
+								CY++;
 					break;
 				case SDLK_a:
-					if(CX > -((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2))
-						CX--;
+					if((CX-oX) > 0)
+						if((CX-oX)-1 > -1)
+							if(!mappa[(CY-oY)][(CX-oX)-1][0]->solid())
+								CX--;
 					break;
 				case SDLK_d:
-					if(CX < nc-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2)-1)
-						CX++;
+					if((CX-oX) < nc-1)
+						if((CX-oX)-1 < nc)
+							if(!mappa[(CY-oY)][(CX-oX)+1][0]->solid())
+								CX++;
 					break;
 				}
 			}
@@ -191,6 +251,8 @@ int main( int argc, char* args[] )
 
 				//Nuovo brillante metodo all in one
 				mappa[i][j][0]->Renderizza(x,y);
+				if(mappa[i][j][1] != NULL)
+					mappa[i][j][1]->Renderizza(x,y);
 				x += GRANDEZZA_TEXTURE;
 			}
 			y += GRANDEZZA_TEXTURE;
@@ -200,7 +262,6 @@ int main( int argc, char* args[] )
 
 		SDL_RenderPresent( gRenderizzatore);
 	}
-	
 
 	SDL_DestroyTexture(textQwe);
 	textQwe = NULL;

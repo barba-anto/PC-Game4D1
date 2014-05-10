@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Mappa_Esempio larghezza="5" altezza="5">
   <Descrizione>
     <nome_short>M_A</nome_short>
@@ -9,7 +9,7 @@
 	La mappa contiene un indirizzo ad una piccola icona e un altro ad una più grande, necessari durante la selezione delle mappe ingame.
 	</descrizione_full>
   </Descrizione>
-  <Mappa start_X="2" start_Y="2">
+  <Mappa start_X="0" start_Y="0">
     <riga posy="0">
 	  <colonna posx="0">
         <terreno>
@@ -45,9 +45,9 @@
 	<riga posy="1">
 	  <colonna posx="0">
         <terreno>
-          <texture_id>6</texture_id>
-          <texture_frame>9</texture_frame>
-          <solido>false</solido>
+          <texture_id>1</texture_id>
+          <texture_frame>512</texture_frame>
+          <solido>true</solido>
         </terreno>
       </colonna>
 	  <colonna posx="1">
@@ -64,16 +64,16 @@
       </colonna>
 	  <colonna posx="3">
         <terreno>
-          <texture_id>3</texture_id>
-          <texture_frame>2</texture_frame>
-          <solido>false</solido>
+          <texture_id>1</texture_id>
+          <texture_frame>512</texture_frame>
+          <solido>true</solido>
         </terreno>
       </colonna>
 	  <colonna posx="4">
         <terreno>
-          <texture_id>7</texture_id>
-          <texture_frame>5</texture_frame>
-          <solido>false</solido>
+          <texture_id>1</texture_id>
+          <texture_frame>512</texture_frame>
+          <solido>true</solido>
         </terreno>
       </colonna>
     </riga>
@@ -93,7 +93,7 @@
 	  <colonna posx="2">
         <terreno>
           <texture_id>1</texture_id>
-          <solido>false</solido>
+          <solido>true</solido>
         </terreno>
       </colonna>
 	  <colonna posx="3">
