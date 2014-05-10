@@ -45,15 +45,16 @@
 	<riga posy="1">
 	  <colonna posx="0">
         <terreno>
-          <texture_id>1</texture_id>
+          <texture_id>2</texture_id>
           <texture_frame>512</texture_frame>
           <solido>true</solido>
         </terreno>
       </colonna>
 	  <colonna posx="1">
         <terreno>
-          <texture_id>5</texture_id>
-          <solido>false</solido>
+          <texture_id>1</texture_id>
+          <texture_frame>512</texture_frame>
+          <solido>true</solido>
         </terreno>
       </colonna>
 	  <colonna posx="2">
@@ -64,7 +65,7 @@
       </colonna>
 	  <colonna posx="3">
         <terreno>
-          <texture_id>1</texture_id>
+          <texture_id>3</texture_id>
           <texture_frame>512</texture_frame>
           <solido>true</solido>
         </terreno>
@@ -93,7 +94,7 @@
 	  <colonna posx="2">
         <terreno>
           <texture_id>1</texture_id>
-          <solido>true</solido>
+          <solido>false</solido>
         </terreno>
       </colonna>
 	  <colonna posx="3">
@@ -148,7 +149,7 @@
           <solido>false</solido>
         </terreno>
 		<entita>
-          <texture_id>1</texture_id>
+          <texture_id>3</texture_id>
           <texture_frame>3</texture_frame>
           <solido>false</solido>
           <portale>mappa2.xml</portale>

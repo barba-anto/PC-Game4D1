@@ -10,11 +10,11 @@ Map::Map(int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* renderizza
 	Map::solido = solido;
 	Map::nframe = -1;
 }
-Map::Map(int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* renderizzatore,SDL_Rect* tile,int nframe ,int speed){
+Map::Map(int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* renderizzatore,int x,int nframe ,int speed){
 	Map::dimensione = grandezza;
 	Map::texture = texture;
 	Map::renderizzatore = renderizzatore;
-	Map::tile = tile;
+	Map::dyn_x = x;
 	Map::solido = solido;
 	Map::nframe = nframe;
 	Map::frame_cur = 0;
@@ -36,7 +36,8 @@ void Map::Renderizza(int x, int y){
 	SDL_Rect a = {x,y,dimensione,dimensione};
 	if(nframe > 0){
 		SDL_Rect a = {x,y,dimensione,dimensione};
-		SDL_RenderCopy(renderizzatore,texture,&tile[frame_cur/velocita],&a);
+		SDL_Rect mv ={dyn_x*16,(frame_cur/velocita),16,16};
+		SDL_RenderCopy(renderizzatore,texture,&mv,&a);
 		if(frame_cur == nframe)
 			frame_cur = 0;
 		else

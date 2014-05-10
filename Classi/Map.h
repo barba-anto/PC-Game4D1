@@ -7,7 +7,7 @@
 class Map: public virtual Tile {
 public:
 	Map(int,bool,SDL_Texture*,SDL_Renderer*,SDL_Rect*);
-	Map(int,bool,SDL_Texture*,SDL_Renderer*,SDL_Rect*,int,int);
+	Map(int,bool,SDL_Texture*,SDL_Renderer*,int,int,int);
 	virtual ~Map();
 	int getTipo();
 	bool solid();
@@ -18,6 +18,7 @@ private:
 	int dimensione;
 	int nframe;
 	int frame_cur;
+	int dyn_x;
 	int velocita;
 	SDL_Texture* texture;
 	SDL_Renderer* renderizzatore;

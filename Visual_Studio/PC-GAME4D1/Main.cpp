@@ -26,7 +26,8 @@ int LARGHEZZA_SCHERMO = 1024;
 int ALTEZZA_SCHERMO = 768;
 int GRANDEZZA_TEXTURE = 48;
 const int NUMERO_TEXTURES = 7;
-const int NUMERO_TEXTURES_DYN = 2;
+const int NUMERO_TEXTURES_DYN = 4;
+const int VELOCITA = 20;
 SDL_Window* gFinestra = NULL; 
 SDL_Renderer* gRenderizzatore = NULL;
 SDL_Texture* gTexture = NULL;
@@ -48,7 +49,7 @@ int main( int argc, char* args[] )
 	int oX =-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2),oY = -((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2);
 
 	textQwe = caricaMedia("../../Textures/Textures.png");
-	textDyn = caricaMedia("../../Textures/lava_flow.png");
+	textDyn = caricaMedia("../../Textures/Textures_flow.png");
 
 	//Quando la texture manca...
 	missing_texture = caricaMedia("../../Textures/MISSING_TEXTURE_0x00000000.png");
@@ -64,39 +65,11 @@ int main( int argc, char* args[] )
 		{112,0,16,16}
 	};
 
-	SDL_Rect textures_dyn[32]={
-		{0,0,16,16},
-		{0,2,16,16},
-		{0,4,16,16},
-		{0,6,16,16},
-		{0,8,16,16},
-		{0,10,16,16},
-		{0,12,16,16},
-		{0,14,16,16},
-		{0,16,16,16},
-		{0,18,16,16},
-		{0,20,16,16},
-		{0,22,16,16},
-		{0,24,16,16},
-		{0,26,16,16},
-		{0,28,16,16},
-		{0,30,16,16},
-		{0,32,16,16},
-		{0,34,16,16},
-		{0,36,16,16},
-		{0,38,16,16},
-		{0,40,16,16},
-		{0,42,16,16},
-		{0,44,16,16},
-		{0,46,16,16},
-		{0,48,16,16},
-		{0,50,16,16},
-		{0,52,16,16},
-		{0,54,16,16},
-		{0,56,16,16},
-		{0,58,16,16},
-		{0,60,16,16},
-		{0,62,16,16}
+	int textures_dyn[NUMERO_TEXTURES_DYN]={
+		0,
+		1,
+		2,
+		3
 	};
 
 
@@ -148,10 +121,12 @@ int main( int argc, char* args[] )
 			blocco = colonna->first_node();
 			blocco = blocco->first_node("texture_id");
 
+
 			txt_id = atoi(blocco->value());
-			if(blocco->next_sibling("texture_frame") != NULL)
+			if(blocco->next_sibling("texture_frame") != NULL){
+				blocco = blocco->next_sibling("texture_frame");
 				txt_frm = atoi(blocco->value());
-			printf("%d\n",txt_frm);
+			}
 
 			blocco = blocco->next_sibling("solido");
 			if(strcmp(blocco->value(),"true"))
@@ -159,13 +134,17 @@ int main( int argc, char* args[] )
 			else
 				solid = true;
 
-			if(txt_frm != NULL)
-				mappa[v1][v2][0] = new Map(GRANDEZZA_TEXTURE,solid,textDyn,gRenderizzatore,&textures_dyn[txt_id],32,20);
-			else
+			if(txt_frm != NULL){
+				printf("X:%d Y:%d\ttxt_id:%d txt_frm:%d\n",v1,v2,txt_id,txt_frm);
+				mappa[v1][v2][0] = new Map(GRANDEZZA_TEXTURE,solid,textDyn,gRenderizzatore,textures_dyn[txt_id],txt_frm,VELOCITA);
+			}
+			else{
+				printf("X:%d Y:%d\ttxt_id:%d\n",v1,v2,txt_id);
 				mappa[v1][v2][0] = new Map(GRANDEZZA_TEXTURE,solid,textQwe,gRenderizzatore,textures[txt_id]);
-			txt_id= NULL;
-			txt_frm = NULL;
-			solid = NULL;
+			}
+			txt_id= 0;
+			txt_frm = 0;
+			solid = 0;
 
 			colonna = colonna->next_sibling();
 		}
