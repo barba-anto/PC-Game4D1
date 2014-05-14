@@ -7,15 +7,15 @@
 
 class Entities: public virtual Tile {
 public:
-	Entities(int,bool,SDL_Texture*,SDL_Renderer*,SDL_Rect*,int,char*);
+	Entities(int,bool,SDL_Texture*,SDL_Renderer*,SDL_Rect*,int,char*,char*);
 	virtual ~Entities();
-	int getTipo();
 	int getStato();
 	Tool* getInventario();
 	void Renderizza(int,int);
 	bool solid();
 	int getFrame();
 	void setFrame(int);
+	char* getTipo();
 	char* getContenuto();
 
 private:
@@ -26,6 +26,7 @@ private:
 	SDL_Texture* texture;
 	SDL_Renderer* renderizzatore;
 	SDL_Rect* tile;
+	char* tipo;
 	char* contenuto;
 };
 

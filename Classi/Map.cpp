@@ -28,10 +28,6 @@ Map::~Map() {
 	tile = NULL;
 }
 
-int Map::getTipo(){
-	return 1;
-}
-
 void Map::Renderizza(int x, int y){
 	SDL_Rect a = {x,y,dimensione,dimensione};
 	if(nframe > 0){

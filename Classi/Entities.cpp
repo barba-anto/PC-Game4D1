@@ -1,7 +1,7 @@
 
 #include "Entities.h"
 
-Entities::Entities(int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* renderizzatore,SDL_Rect* tile, int frame, char* contenuto) {
+Entities::Entities(int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* renderizzatore,SDL_Rect* tile, int frame, char* tipo,char* contenuto) {
 	Entities::dimensione = grandezza;
 	Entities::texture = texture;
 	Entities::renderizzatore = renderizzatore;
@@ -10,16 +10,13 @@ Entities::Entities(int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* 
 	Entities::frame = frame;
 	Entities::frame_attuale = 0;
 	SDL_strlcpy(Entities::contenuto,contenuto,SDL_strlen(contenuto));
+	SDL_strlcpy(Entities::tipo,contenuto,SDL_strlen(tipo));
 }
 
 Entities::~Entities() {
 	texture = NULL;
 	renderizzatore = NULL;
 	tile = NULL;
-}
-
-int Entities::getTipo(){
-	return 2;
 }
 
 void Entities::Renderizza(int x,int y){
@@ -42,4 +39,8 @@ int Entities::getFrame(){
 
 char* Entities::getContenuto(){
 	return Entities::contenuto;
+}
+
+char* Entities::getTipo(){
+	return Entities::tipo;
 }

@@ -152,7 +152,8 @@
           <texture_id>3</texture_id>
           <texture_frame>3</texture_frame>
           <solido>false</solido>
-          <portale>mappa2.xml</portale>
+		  <tipo>portale</tipo>
+          <funzione>mappa2.xml</funzione>
         </entita>
       </colonna>
 	  <colonna posx="1">

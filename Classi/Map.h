@@ -9,7 +9,6 @@ public:
 	Map(int,bool,SDL_Texture*,SDL_Renderer*,SDL_Rect*);
 	Map(int,bool,SDL_Texture*,SDL_Renderer*,int,int,int);
 	virtual ~Map();
-	int getTipo();
 	bool solid();
 	int getModalita();
 	void Renderizza(int,int);
