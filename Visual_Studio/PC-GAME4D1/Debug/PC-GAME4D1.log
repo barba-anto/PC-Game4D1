@@ -1,4 +1,4 @@
-﻿Compilazione avviata 14/05/2014 23:06:09.
+﻿Compilazione avviata 15/05/2014 22:52:07.
      1>Progetto "C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\PC-GAME4D1\PC-GAME4D1.vcxproj" sul nodo 2 (destinazioni: Build).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\..\Classi /I..\..\Librerie\include /Zi /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
@@ -17,4 +17,4 @@
 
 Build succeeded.
 
-Tempo trascorso 00:00:02.34
+Tempo trascorso 00:00:02.06

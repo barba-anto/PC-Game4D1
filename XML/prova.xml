@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Mappa_Esempio larghezza="5" altezza="5">
+<Livello larghezza="5" altezza="5">
   <Descrizione>
     <nome_short>M_A</nome_short>
-    <icon_small>../../Textures/small.ico.png</icon_small>
-    <icon_big>../../Textures/big.ico.png</icon_big>
+    <icon_small>../../Textures/Icone/small.M_A.png</icon_small>
+    <icon_big>../../Textures/Icone/big.M_A.png</icon_big>
     <descrizione_full>
 	Questa è una mappa di esempio di come è costruita una mappa in XML composta da cinque righe e cinque colonne.
 	La mappa contiene un indirizzo ad una piccola icona e un altro ad una più grande, necessari durante la selezione delle mappe ingame.
@@ -47,6 +47,7 @@
         <terreno>
           <texture_id>2</texture_id>
           <texture_frame>512</texture_frame>
+		  <velocita>20</velocita>
           <solido>true</solido>
         </terreno>
       </colonna>
@@ -54,6 +55,7 @@
         <terreno>
           <texture_id>1</texture_id>
           <texture_frame>512</texture_frame>
+		  <velocita>20</velocita>
           <solido>true</solido>
         </terreno>
       </colonna>
@@ -67,6 +69,7 @@
         <terreno>
           <texture_id>3</texture_id>
           <texture_frame>512</texture_frame>
+		  <velocita>10</velocita>
           <solido>true</solido>
         </terreno>
       </colonna>
@@ -74,6 +77,7 @@
         <terreno>
           <texture_id>1</texture_id>
           <texture_frame>512</texture_frame>
+		  <velocita>30</velocita>
           <solido>true</solido>
         </terreno>
       </colonna>
@@ -149,7 +153,7 @@
           <solido>false</solido>
         </terreno>
 		<entita>
-          <texture_id>3</texture_id>
+          <texture_id>2</texture_id>
           <texture_frame>3</texture_frame>
           <solido>false</solido>
 		  <tipo>portale</tipo>
@@ -182,4 +186,4 @@
       </colonna>
     </riga>
   </Mappa>
-</Mappa_Esempio>
+</Livello>

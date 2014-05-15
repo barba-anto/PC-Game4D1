@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="Mappa_Esempio">
+  <xs:element name="Livello">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="Descrizione">
@@ -27,6 +27,7 @@
                               <xs:sequence>
                                 <xs:element name="texture_id" type="xs:unsignedInt"/>
                                 <xs:element name ="texture_frame" type="xs:unsignedInt"/>
+								<xs:element name ="velocita" type="xs:unsignedInt"/>
                                 <xs:element name="solido" type="xs:boolean"/>
                               </xs:sequence>
                             </xs:complexType>

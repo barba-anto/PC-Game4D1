@@ -31,9 +31,9 @@ int ALTEZZA_SCHERMO = 600;
 int GRANDEZZA_TEXTURE = 16;
 const int NUMERO_TEXTURES = 7;
 const int NUMERO_TEXTURES_DYN = 4;
-const int VELOCITA = 20;
 int nc;
 int nr;
+int p_Direzione = 0; //0 = basso,1 = destra, 2 = alto, 3 = sinistra  
 int CX,CY;
 int oX,oY;
 SDL_Window* gFinestra = NULL; 
@@ -52,13 +52,6 @@ SDL_Rect textures[NUMERO_TEXTURES][4]={
 	{80,0,16,16},
 	{96,0,16,16},
 	{112,0,16,16}
-};
-
-int textures_dyn[NUMERO_TEXTURES_DYN]={
-	0,
-	1,
-	2,
-	3
 };
 
 
@@ -123,28 +116,41 @@ int main( int argc, char* args[] )
 				switch (keyPressed)
 				{
 				case SDLK_w:
+					p_Direzione = 2;
 					if((CY-oY) > 0)
 						if((CY-oY)-1 > -1)
 							if(!mappa[(CY-oY)-1][(CX-oX)][0]->solid())
 								CY--;
 					break;
 				case SDLK_s:
+					p_Direzione = 0;
 					if((CY-oY) < nr-1)
 						if((CY-oY)-1 < nr)
 							if(!mappa[(CY-oY)+1][(CX-oX)][0]->solid())
 								CY++;
 					break;
 				case SDLK_a:
+					p_Direzione = 3;
 					if((CX-oX) > 0)
 						if((CX-oX)-1 > -1)
 							if(!mappa[(CY-oY)][(CX-oX)-1][0]->solid())
 								CX--;
 					break;
 				case SDLK_d:
+					p_Direzione = 1;
 					if((CX-oX) < nc-1)
 						if((CX-oX)-1 < nc)
 							if(!mappa[(CY-oY)][(CX-oX)+1][0]->solid())
 								CX++;
+					break;
+
+				case SDLK_SPACE:
+						printf("prova\n");
+						Entities* e = dynamic_cast<Entities *>(mappa[(CY-oY)][(CX-oX)+1][1]);
+						if(e){
+							printf("funzia");
+						}
+
 					break;
 				}
 			}
@@ -298,6 +304,7 @@ void caricaMappa(char* map){
 	int CX=atoi(nodo2->first_attribute("start_X")->value())-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2),CY=atoi(nodo2->first_attribute("start_Y")->value())-((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2);
 	int txt_id = NULL;
 	int txt_frm = NULL;
+	int txt_spd = NULL;
 	bool solid = NULL;
 	char* tipo = NULL;
 	char* contenuto = NULL;
@@ -320,6 +327,8 @@ void caricaMappa(char* map){
 			if(blocco->next_sibling("texture_frame") != NULL){
 				blocco = blocco->next_sibling("texture_frame");
 				txt_frm = atoi(blocco->value());
+				blocco = blocco->next_sibling("velocita");
+				txt_spd = atoi(blocco->value());
 			}
 
 			blocco = blocco->next_sibling("solido");
@@ -329,13 +338,14 @@ void caricaMappa(char* map){
 				solid = true;
 
 			if(txt_frm != NULL){
-				mappa[v1][v2][0] = new Map(GRANDEZZA_TEXTURE,solid,textDyn,gRenderizzatore,textures_dyn[txt_id],txt_frm,VELOCITA);
+				mappa[v1][v2][0] = new Map(GRANDEZZA_TEXTURE,solid,textDyn,gRenderizzatore,txt_id,txt_frm,txt_spd);
 			}
 			else{
 				mappa[v1][v2][0] = new Map(GRANDEZZA_TEXTURE,solid,textQwe,gRenderizzatore,textures[txt_id]);
 			}
 			txt_id= 0;
 			txt_frm = 0;
+			txt_spd = 0;
 			solid = 0;
 
 			//entità
@@ -360,6 +370,7 @@ void caricaMappa(char* map){
 
 			txt_id= 0;
 			txt_frm = 0;
+			txt_spd = 0;
 			solid = 0;
 			tipo = "";
 			contenuto = "";
@@ -407,6 +418,10 @@ int main_menu(){
 				}
 			}
 		}
+		SDL_RenderCopy(gRenderizzatore,sfondo,NULL,&sfond);
+		SDL_RenderCopy(gRenderizzatore,start,NULL,&carica);
+		SDL_RenderCopy(gRenderizzatore,ext,NULL,&exit);
+		SDL_RenderPresent( gRenderizzatore);
 	}
 	SDL_DestroyTexture(start);
 	SDL_DestroyTexture(ext);
@@ -415,5 +430,5 @@ int main_menu(){
 
 	SDL_SetRenderDrawColor( gRenderizzatore, 0x00, 0x00, 0x00, 0x00);
 	SDL_RenderClear( gRenderizzatore );
-		return result;
+	return result;
 }

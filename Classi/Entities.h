@@ -9,7 +9,6 @@ class Entities: public virtual Tile {
 public:
 	Entities(int,bool,SDL_Texture*,SDL_Renderer*,SDL_Rect*,int,char*,char*);
 	virtual ~Entities();
-	int getStato();
 	Tool* getInventario();
 	void Renderizza(int,int);
 	bool solid();
