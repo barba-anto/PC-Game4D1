@@ -40,6 +40,7 @@ SDL_Window* gFinestra = NULL;
 SDL_Renderer* gRenderizzatore = NULL;
 SDL_Texture* gTexture = NULL;
 SDL_Texture* textQwe = NULL;
+SDL_Texture* textOmino = NULL;
 SDL_Texture* textDyn = NULL;
 SDL_Texture* missing_texture= NULL;
 Tile* mappa[300][300][2];
@@ -79,10 +80,12 @@ int main( int argc, char* args[] )
 
 
 	textQwe = caricaMedia("../../Textures/Textures.png");
+	textOmino = caricaMedia("../../Textures/Omino.png");
 	textDyn = caricaMedia("../../Textures/Textures_flow.png");
 
 	//Quando la texture manca...
 	missing_texture = caricaMedia("../../Textures/MISSING_TEXTURE_0x00000000.png");
+
 
 	caricaMappa("../../XML/prova.xml");
 
@@ -119,36 +122,39 @@ int main( int argc, char* args[] )
 					p_Direzione = 2;
 					if((CY-oY) > 0)
 						if((CY-oY)-1 > -1)
-							if(!mappa[(CY-oY)-1][(CX-oX)][0]->solid())
+							if(!mappa[(CY-oY)-1][(CX-oX)][0]->solid() && mappa[(CY-oY)-1][(CX-oX)][1]!= NULL ?!mappa[(CY-oY)-1][(CX-oX)][1]->solid() :true)
 								CY--;
 					break;
 				case SDLK_s:
 					p_Direzione = 0;
 					if((CY-oY) < nr-1)
 						if((CY-oY)-1 < nr)
-							if(!mappa[(CY-oY)+1][(CX-oX)][0]->solid())
+							if(!mappa[(CY-oY)+1][(CX-oX)][0]->solid() && mappa[(CY-oY)-1][(CX-oX)][1]!= NULL ?!mappa[(CY-oY)+1][(CX-oX)][1]->solid() :true)
 								CY++;
 					break;
 				case SDLK_a:
 					p_Direzione = 3;
 					if((CX-oX) > 0)
 						if((CX-oX)-1 > -1)
-							if(!mappa[(CY-oY)][(CX-oX)-1][0]->solid())
+							if(!mappa[(CY-oY)][(CX-oX)-1][0]->solid() && mappa[(CY-oY)-1][(CX-oX)][1]!= NULL ?!mappa[(CY-oY)][(CX-oX)-1][1]->solid() :true)
 								CX--;
 					break;
 				case SDLK_d:
 					p_Direzione = 1;
 					if((CX-oX) < nc-1)
 						if((CX-oX)-1 < nc)
-							if(!mappa[(CY-oY)][(CX-oX)+1][0]->solid())
+							if(!mappa[(CY-oY)][(CX-oX)+1][0]->solid() && mappa[(CY-oY)-1][(CX-oX)][1]!= NULL ?!mappa[(CY-oY)][(CX-oX)+1][1]->solid() :true)
 								CX++;
 					break;
 
 				case SDLK_SPACE:
 						printf("prova\n");
-						Entities* e = dynamic_cast<Entities *>(mappa[(CY-oY)][(CX-oX)+1][1]);
-						if(e){
-							printf("funzia");
+						Entities* v = dynamic_cast<Entities*>(mappa[(CY-oY)][(CX-oX)][1]);
+						if(v != 0) {
+							if(!SDL_strcmp(v->getTipo(),"portale")){
+								caricaMappa(v->getContenuto());
+								printf("\nCarica %s\n",v->getContenuto());
+							}
 						}
 
 					break;
@@ -180,9 +186,8 @@ int main( int argc, char* args[] )
 			}
 			y += GRANDEZZA_TEXTURE;
 		}
-		SDL_Rect asd = {((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2)*GRANDEZZA_TEXTURE,(((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2)*GRANDEZZA_TEXTURE)+GRANDEZZA_TEXTURE-8,8,8};
-		SDL_RenderCopy(gRenderizzatore,missing_texture,NULL,&asd);
-
+		SDL_Rect asd = {((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2)*GRANDEZZA_TEXTURE,(((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2)*GRANDEZZA_TEXTURE)-GRANDEZZA_TEXTURE,GRANDEZZA_TEXTURE,GRANDEZZA_TEXTURE*2};
+		SDL_RenderCopy(gRenderizzatore,textOmino,NULL,&asd);
 		SDL_RenderPresent( gRenderizzatore);
 	}
 
@@ -191,7 +196,6 @@ int main( int argc, char* args[] )
 }
 
 bool inizializza() { 
-
 	xml_document<> cfg;
 	ifstream file("config.xml");
 	vector<char> buffer((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
@@ -301,7 +305,7 @@ void caricaMappa(char* map){
 	xml_node<> *nodo2 = nodo->first_node();
 	nodo2 = nodo2->next_sibling();
 
-	int CX=atoi(nodo2->first_attribute("start_X")->value())-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2),CY=atoi(nodo2->first_attribute("start_Y")->value())-((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2);
+	CX=atoi(nodo2->first_attribute("start_X")->value())-((LARGHEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2),CY=atoi(nodo2->first_attribute("start_Y")->value())-((ALTEZZA_SCHERMO/GRANDEZZA_TEXTURE)/2);
 	int txt_id = NULL;
 	int txt_frm = NULL;
 	int txt_spd = NULL;
@@ -362,18 +366,25 @@ void caricaMappa(char* map){
 				else
 					solid = true;
 				blocco = blocco->next_sibling("tipo");
+				tipo = (char*)SDL_malloc(SDL_strlen(blocco->value()));
 				SDL_strlcpy(tipo,blocco->value(),SDL_strlen(tipo));
 				blocco = blocco->next_sibling("funzione");
-				SDL_strlcpy(contenuto,blocco->value(),SDL_strlen(contenuto));
+				contenuto = (char*)SDL_malloc(SDL_strlen(blocco->value()));
+				char* tmp = blocco->value();
+				unsigned int j;
+				for (j = 0; j < SDL_strlen(contenuto)+1;j++)
+					contenuto[j] = tmp[j];
+				//SDL_strlcpy(contenuto,blocco->value(),sizeof(char)*(strlen(contenuto)+1));
 				mappa[v1][v2][1] = new Entities(GRANDEZZA_TEXTURE,solid,textDyn,gRenderizzatore,textures[txt_id],txt_frm,tipo,contenuto);
+
+				SDL_free((char*)tipo);
+				SDL_free((char*)contenuto);
 			}
 
 			txt_id= 0;
 			txt_frm = 0;
 			txt_spd = 0;
 			solid = 0;
-			tipo = "";
-			contenuto = "";
 			colonna = colonna->next_sibling();
 		}
 		riga = riga->next_sibling();

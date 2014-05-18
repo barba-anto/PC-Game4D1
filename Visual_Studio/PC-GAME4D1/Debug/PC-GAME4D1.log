@@ -1,7 +1,7 @@
-﻿Compilazione avviata 15/05/2014 22:52:07.
+﻿Compilazione avviata 18/05/2014 12:25:23.
      1>Progetto "C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\PC-GAME4D1\PC-GAME4D1.vcxproj" sul nodo 2 (destinazioni: Build).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\..\Classi /I..\..\Librerie\include /Zi /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\..\Classi /I..\..\Librerie\include /Zi /nologo /W3 /WX- /sdl /Od /Oy- /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
          Main.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\Debug\PC-GAME4D1.exe" /INCREMENTAL /NOLOGO SDL2\x86\SDL2.lib SDL2\x86\SDL2main.lib SDL2\x86\SDL2_image.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\Debug\PC-GAME4D1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Christian\WorkGames\PC-Game4D1\Visual_Studio\Debug\PC-GAME4D1.lib" /MACHINE:X86 "Debug\PC-GAME4D11.res"
@@ -17,4 +17,4 @@
 
 Build succeeded.
 
-Tempo trascorso 00:00:02.06
+Tempo trascorso 00:00:02.42

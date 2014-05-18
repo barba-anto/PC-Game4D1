@@ -1,5 +1,6 @@
 
 #include "Entities.h"
+#include <stdio.h>
 
 Entities::Entities(int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* renderizzatore,SDL_Rect* tile, int frame, char* tipo,char* contenuto) {
 	Entities::dimensione = grandezza;
@@ -9,14 +10,18 @@ Entities::Entities(int grandezza,bool solido,SDL_Texture* texture,SDL_Renderer* 
 	Entities::solido = solido;
 	Entities::frame = frame;
 	Entities::frame_attuale = 0;
-	SDL_strlcpy(Entities::contenuto,contenuto,SDL_strlen(contenuto));
-	SDL_strlcpy(Entities::tipo,contenuto,SDL_strlen(tipo));
+	Entities::tipo = (char*)SDL_malloc(SDL_strlen(tipo));
+	SDL_strlcpy(Entities::tipo,tipo,sizeof(char)*(SDL_strlen(tipo)+1));
+	Entities::contenuto = (char*)SDL_malloc(SDL_strlen(contenuto));
+	SDL_strlcpy(Entities::contenuto,contenuto,sizeof(char*)*(SDL_strlen(contenuto)+1));
 }
 
 Entities::~Entities() {
 	texture = NULL;
 	renderizzatore = NULL;
 	tile = NULL;
+	SDL_free(Entities::contenuto);
+	SDL_free(Entities::tipo);
 }
 
 void Entities::Renderizza(int x,int y){
